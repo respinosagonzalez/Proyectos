@@ -1,0 +1,225 @@
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01
+$ git init
+Initialized empty Git repository in C:/Users/Rafael.Espinosa/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01/.git/
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git add archivo_03.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   archivo_03.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        archivo_01.txt
+        archivo_02.txt
+
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git commit -m "Inicio de proyecto"
+[master (root-commit) ec90a6f] Inicio de proyecto
+ 1 file changed, 1 insertion(+)
+ create mode 100644 archivo_03.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        archivo_01.txt
+        archivo_02.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git commit -am "Segundo commit"
+[master 48ba2ec] Segundo commit
+ 2 files changed, 2 insertions(+)
+ create mode 100644 archivo_01.txt
+ create mode 100644 archivo_02.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git remote add origin https://github.com/respinosagonzalez/sesion01_lab01.git
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (master)
+$ git branch -M main
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push -u origin main
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (7/7), 575 bytes | 143.00 KiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+ * [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git commit -am "Segunda frase"
+[main cbc8975] Segunda frase
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push -u origin main
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 352 bytes | 176.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+   48ba2ec..cbc8975  main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 726 bytes | 36.00 KiB/s, done.
+From https://github.com/respinosagonzalez/sesion01_lab01
+   cbc8975..91de1ae  main       -> origin/main
+Updating cbc8975..91de1ae
+Fast-forward
+ archivo_01.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git branch desarrollo
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git checkout desarrollo
+Switched to branch 'desarrollo'
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (desarrollo)
+$ git add archivo_04.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (desarrollo)
+$ git status
+On branch desarrollo
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   archivo_04.txt
+
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (desarrollo)
+$ git commit -m "Guardando rama desarrollo"
+[desarrollo c4e88b2] Guardando rama desarrollo
+ 1 file changed, 1 insertion(+)
+ create mode 100644 archivo_04.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (desarrollo)
+$ git push -u origin desarrollo
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 309 bytes | 154.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'desarrollo' on GitHub by visiting:
+remote:      https://github.com/respinosagonzalez/sesion01_lab01/pull/new/desarrollo
+remote:
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+ * [new branch]      desarrollo -> desarrollo
+Branch 'desarrollo' set up to track remote branch 'desarrollo' from 'origin'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (desarrollo)
+$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git merge desarrollo
+Updating 91de1ae..c4e88b2
+Fast-forward
+ archivo_04.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 archivo_04.txt
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git branch -d desarrollo
+Deleted branch desarrollo (was c4e88b2).
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push -u origin main
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+   91de1ae..c4e88b2  main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push origin --delete desarrollo
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+ - [deleted]         desarrollo
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git add .
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git commit -m "Añadiendo .gitignore"
+[main 4555c4f] Añadiendo .gitignore
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push -u origin main
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 303 bytes | 101.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+   c4e88b2..4555c4f  main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ git push --tags
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 187 bytes | 93.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/respinosagonzalez/sesion01_lab01.git
+ * [new tag]         22-02-2021_v1 -> 22-02-2021_v1
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos/sesion01_lab01 (main)
+$ exit
+
+$ git clone https://github.com/respinosagonzalez/sesion01_lab01.git
+Cloning into 'sesion01_lab01'...
+remote: Enumerating objects: 20, done.
+remote: Counting objects: 100% (20/20), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 20 (delta 2), reused 18 (delta 2), pack-reused 0
+Receiving objects: 100% (20/20), done.
+Resolving deltas: 100% (2/2), done.
+
+UCLM+Rafael.Espinosa@UCLMAPC23957 MINGW64 ~/OneDrive - Universidad de Castilla-La Mancha/Profesional/Proyectos
+
+*************************
+git config --global init.defaultBranch main
+*************************
+git branch -m master main
+git fetch origin
+git branch -u origin/main main
+*************************
+git branch <name> <id_commit>
+*************************

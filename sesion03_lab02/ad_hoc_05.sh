@@ -1,0 +1,1 @@
+ansible nodos -m user -a "name=ansible uid=1001 comment='Usuario desde ad-hoc'",

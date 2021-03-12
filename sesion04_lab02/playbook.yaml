@@ -1,0 +1,72 @@
+---
+- name: "sesion04_lab02"
+  hosts: nodos
+  vars:
+    paquetes:
+      - openssh-server
+      - firewalld
+      - httpd
+      - mariadb-server
+
+    grupos:
+      - ctic
+      - devops
+      - everis
+   
+  vars_files:
+    vars/default.yml
+
+  tasks:
+    - name: "Grupos"
+      group:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ grupos }}"
+
+    - name: "Paquetes"
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ paquetes }}"
+     
+    - name: "Servicios"
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop: "{{ servicios }}"
+
+    - name: "Administrador"
+      user:
+        name: administrador
+        groups: "{{ usuarios['administrador']['grupo'] }}"
+        generate_ssh_key: "{{ usuarios['administrador']['generar_key'] }}"
+        ssh_key_bits: 2048
+        ssh_key_file: "{{ usuarios['administrador']['ruta_key'] }}"
+        expires: "{{ usuarios['administrador']['expira'] }}"
+
+    - name: "Everis_prueba"
+      user:
+        name: everis_prueba
+        groups: "{{ usuarios['everis_prueba']['grupo'] }}"
+        generate_ssh_key: "{{ usuarios['everis_prueba']['generar_key'] }}"
+        uid: "{{ usuarios['everis_prueba']['identificador'] }}"
+        expires: "{{ usuarios['everis_prueba']['expira'] }}"
+
+    - name: "REspinosa"
+      user:
+        name: respinosa            
+        groups: "{{ usuarios['respinosa']['grupo'] }}"   
+        generate_ssh_key: "{{ usuarios['respinosa']['generar_key'] }}"
+        ssh_key_bits: 2048
+        ssh_key_file: "{{ usuarios['respinosa']['ruta_key'] }}"        
+        expires: "{{ usuarios['respinosa']['expira'] }}"
+
+    - name: "Reinicios"
+      service:
+        name: "{{ item }}"
+        state: restarted
+      loop: "{{ servicios }}"
+
+    - name: "Reinicio de nodos"
+      reboot:

@@ -1,0 +1,25 @@
+---
+- name: "Creacion de usuario"
+  hosts: nodos
+  vars_files: "playbook_03_file.yaml"
+
+  tasks:
+    - name: "Crea usuario {{ usuarios['respinosa']['nombre'] }}"
+      user:
+        name: "{{ usuarios['respinosa']['nombre'] }}"
+        uid: "{{ usuarios['respinosa']['identificador'] }}"
+        state: present
+    - name: "Mensaje"
+      debug:
+        msg: "El usuario ha sido creado"
+
+- name: "Copiar el nombre del servidor master"
+  hosts: master
+  vars_files: "playbook_03_file.yaml"
+  tasks: 
+    - name: "Creacio usuario {{ usuarios['oracle']['nombre'] }}" 
+      user:
+        name: "{{ usuarios['oracle']['nombre'] }}"
+        uid: "{{ usuarios['oracle']['identificador'] }}"
+        home: "{{ usuarios['oracle']['home'] }}"
+...

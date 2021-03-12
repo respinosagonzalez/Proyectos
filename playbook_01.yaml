@@ -1,0 +1,110 @@
+---
+- name: "Instalacion y configuracion de servidor Web"
+  hosts: nodo_01
+  tasks:
+    - name: "Comentamos la tarea"
+      debug:
+        msg: "En este ejericicio practicaremos el desarrollo de un playbook desde 0 para ello, realizaremos varias tareas para levantar un servidor apache"
+    - name: "INstalamos el paquete httpd"
+      yum:
+        name: "httpd"
+    - name: "Ajustamos firewall por http"
+      firewalld:
+        permanent: true
+        service: http
+        state: enabled
+    - name: "Ajustamos firewall por https"
+      firewalld:
+        permanent: true
+        service: https
+        state: enabled
+    - name: "Reiniciamos el servicio firewalld"
+      firewalld:
+    - name: "Arrancamos el servicio httpd"
+      service:
+        name: httpd
+        enabled: yes
+        state: started
+    - name: Disable SELinux
+        selinux:
+          state: disabled
+          policy: disabled
+    - name: Creamos el directorio html
+      file:
+        path: /var/www/example.com/html
+        owner: root
+        group: root
+        state: directory
+    - name: Creamos el directorio log
+      file:
+        path: /var/www/example.com/log
+        owner: root
+        group: root        
+        state: directory
+    - name: Ajustamos el directorio html
+      file:
+        path: /var/www/
+        recurse: yes
+        mode: 0755
+    - name: Creamos el fichero index.html
+      blockinfile:
+        path: /var/www/example.com/html/index.html
+        create: yes
+        mode: 644
+        owner: 48
+        group: 48
+        block: |
+   			<html>
+	  			<head>
+		  			<title>Welcome to Example.com!</title>
+			  	</head>
+				  <body>
+					  <h1>Success! The example.com virtual host is working!</h1>
+				  </body>
+  			</html>
+    - name: Creamos el directorio avail
+      file:
+        path: /etc/httpd/sites-available
+        owner: root
+        group: root        
+        state: directory
+    - name: Creamos el directorio enabled
+      file:
+        path: /etc/httpd/sites-enabled
+        owner: root
+        group: root        
+        state: directory        
+    - name: Creamos el fichero index.html
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        create: yes
+        mode: 644
+        owner: 48
+        group: 48
+        line: "IncludeOptional sites-enabled/*.conf"
+        insertafter: EOF
+    - name: Creamos el fichero index.html
+      blockinfile:
+        path: /etc/httpd/sites-available/example.com.conf
+        create: yes
+        mode: 644
+        owner: root
+        group: root
+        block: |
+			<VirtualHost *:80>
+				ServerName www.example.com
+				ServerAlias example.com
+				DocumentRoot /var/www/example.com/html
+				ErrorLog /var/www/example.com/log/error.log
+				CustomLog /var/www/example.com/log/requests.log combined
+			</VirtualHost>
+    - name: Creamos el link 
+      file:
+        src: /etc/httpd/sites-available/example.com.conf
+        dest: /etc/httpd/sites-enabled/example.com.conf
+        state: link
+    - name: "Arrancamos el servicio httpd"
+      service:
+        name: httpd
+        state: restarted
+...

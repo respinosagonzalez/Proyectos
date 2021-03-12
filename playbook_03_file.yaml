@@ -1,0 +1,9 @@
+usuarios:
+  oracle:
+    nombre: "oracle"
+    identificador: 3000
+    home: "/home/oracle" 
+  respinosa:
+    nombre: "respinosa"
+    identificador: 4000
+    home: "/home/respinosa"

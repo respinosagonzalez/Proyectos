@@ -1,0 +1,22 @@
+servicios:
+  - sshd
+  - firewalld
+  - httpd
+  - mariadb
+
+usuarios:
+  administrador:
+    grupo: root
+    generar_key: yes
+    ruta_key: ".ssh/id_rsa"
+    expira: -1
+  everis_prueba:
+    grupo: everis
+    generar_key: no
+    identificador: 1212
+    expira: 12407987
+  respinosa:
+    grupo: ctic, devops
+    generar_key: yes
+    ruta_key: ".ssh/id_rsa"
+    expira: 122403387
