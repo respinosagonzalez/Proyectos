@@ -1,8 +1,8 @@
 ---
 - name: "Sesion 05 Lab 01"
-  hosts: nodo01
+  hosts: nodo_01
   vars: 
-    fichero: "/tmp/datos_hrarios_{{ ansible_facts['hostname'] }}.txt"
+    fichero: "/tmp/datos_horarios_{{ ansible_facts['hostname'] }}.txt"
 
   tasks:
     - name: "Hora en registro"

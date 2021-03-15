@@ -1,6 +1,6 @@
 ---
 - name: "Sesion05_Lab02"
-  hosts: nodo02
+  hosts: nodo_02
   vars:
     archivos:
       - arch_01

@@ -1,0 +1,77 @@
+---
+- name: "Sesion 05 Lab 03"
+  hosts: nodo_01
+  vars: 
+    dir: "/tmp/"
+    fichero: "datos_horarios_{{ ansible_facts['hostname'] }}.txt"
+
+  tasks:
+    - name: "Hora en registro"
+      command: "date +%T"
+      register: "Hora"
+
+    - name: "Hora Moscu" 
+      timezone:
+        name: "Europe/Moscow"   
+      register: "Cambio_Moscu"
+
+    - name: "Hora Moscu"
+      command: "date +%T"
+      register: "Hora_Moscu"
+
+    - name: "Resultado en {{ fichero }} "
+      blockinfile:
+        path: "{{ fichero }}"
+        create: yes
+        block: |
+          La zona horaria antes del cambio {{ Cambio_Moscu.diff.before.name }} Y la hora era {{ Hora.stdout_lines[0] }}
+          La zona horaria despuesdel cambio es {{ Cambio_Moscu.diff.after.name }} Y la hora era {{ Hora_Moscu.stdout_lines[0] }}
+    
+    - name: "Recupera"
+      timezone:
+        name: "{{ Cambio_Moscu.diff.before.name }}"
+
+    - name: "Copia {{ fichero }} al nodo master"
+      fetch:
+        src: "{{ fichero }}"
+        dest: "{{ dir }}"
+        flat: yes
+
+- name: "Sesion 05 Lab 03"
+  hosts: nodo_02
+  vars: 
+    dir: "/tmp/" 
+    fichero: "datos_horarios_{{ ansible_facts['hostname'] }}.txt"
+
+  tasks:
+    - name: "Hora en registro"
+      command: "date +%T"
+      register: "Hora2"
+
+    - name: "Hora Tokio" 
+      timezone:
+        name: "Asia/Tokyo"   
+      register: "Cambio_Tokyo"
+
+    - name: "Hora Tokyo"
+      command: "date +%T"
+      register: "Hora_Tokyo"
+
+    - name: "Resultado en {{ fichero }} "
+      blockinfile:
+        path: "{{ fichero }}"
+        create: yes
+        block: |
+          La zona horaria antes del cambio {{ Cambio_Tokyo.diff.before.name }} Y la hora era {{ Hora2.stdout_lines[0] }}
+          La zona horaria despuesdel cambio es {{ Cambio_Tokyo.diff.after.name }} Y la hora era {{ Hora_Tokyo.stdout_lines[0] }}
+    
+    - name: "Recupera"
+      timezone:
+        name: "{{ Cambio_Tokyo.diff.before.name }}"
+
+    - name: "Copia {{ fichero }} al nodo master"
+      fetch:
+        src: "{{ fichero }}"
+        dest: "{{ dir }}"
+        flat: yes
+...
