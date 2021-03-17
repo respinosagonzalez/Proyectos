@@ -6,34 +6,41 @@
     fichero: "datos_horarios_{{ ansible_facts['hostname'] }}.txt"
 
   tasks:
-    - name: "Hora Madrid" 
-      timezone:
-        name: "Europe/Madrid"   
-      register: "Cambio_Local"
+    - block:
+        - name: "Hora Madrid" 
+          timezone:
+            name: "Europe/Madrid"   
+          register: "Cambio_Local"
+        - name: "Obtener marca de tiempo inicial y guardarla"
+          command: "date +%T"
+          register: hora_inicio  
 
-    - name: "Hora en registro"
-      command: "date +%T"
-      register: "Hora_Local"
+        - name: "Hora Moscu" 
+          timezone:
+            name: "Europe/Moscow"
+          register: hora_moscu
+          when: (( ansible_date_time['weekday_number'] | int in (1,3,5,7)) and ( ansible_date_time.hour | int >= 12))
+          
+        - name: "Hora Tokyo" 
+          timezone:
+            name: "Asia/Tokyo"
+          register: hora_tokyo
+          when: (( ansible_date_time['weekday_number'] | int in (2,4,6)) and ( ansible_date_time.hour | int >= 10))
 
-    - name: "Hora Moscu" 
-      timezone:
-        name: "Europe/Moscow"   
-      when: {{ Hora_Local.stdout_lines[0] }}
+        - name: "Obtener marca de tiempo después de cambio y guardarla"
+          command: "date +%T"
+          register: hora_post
 
-    - name: "Hora Tokyo" 
-      timezone:
-        name: "Asia/Tokyo"   
-      when: {{ Hora_Local.stdout_lines[0] }}
+        - name: "Resultado en {{ fichero }} "
+          blockinfile:
+            path: "{{ fichero }}"
+            create: yes
+            block: |
+              La zona horaria antes del cambio {{ hora_inicio.diff.before.name }} Y la hora era {{ hora_inicio.stdout_lines[0] }}
+              La zona horaria despues del cambio es {{ hora_post.diff.after.name }} Y la hora era {{ hora_post.stdout_lines[0] }}
 
-    - name: "Resultado en {{ fichero }} "
-      blockinfile:
-        path: "{{ fichero }}"
-        create: yes
-        block: |
-          La zona horaria antes del cambio {{ Cambio_Moscu.diff.before.name }} Y la hora era {{ Hora.stdout_lines[0] }}
-          La zona horaria despuesdel cambio es {{ Cambio_Moscu.diff.after.name }} Y la hora era {{ Hora_Moscu.stdout_lines[0] }}
-    
-    - name: "Local"
-      timezone:
-        name: "Europe/Madrid"
+      always:  
+        - name: "Restablecer zona horaria a Madrid aunque falle"
+          timezone:
+            name: Europe/Madrid
 ...               
