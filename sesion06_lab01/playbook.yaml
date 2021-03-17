@@ -1,0 +1,81 @@
+---
+- name: "Sesion 06 Lab 01"
+  hosts: nodo_01
+  vars:
+    paquetes:
+      - bind
+      - bind-utils
+    lineas:
+      - "listen-on port 53 { 127.0.0.1; };"
+      - "listen-on-v6 port 53 { ::1; };"
+ 
+  tasks:
+    - block:
+        - name: "Paquetería"
+          yum:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ paquetes }}"
+          notify: "named"
+
+        - meta: flush_handlers
+
+        - name: "Añadir servicio de DNS a firewall"
+          firewalld:
+            service: dns
+            permanent: yes
+            state: enabled
+            zone: public
+
+        - name: "Comentar líneas fichero /etc/named.conf"
+          lineinfile:
+            path: /etc/named.conf
+            regexp: '^(\s+listen-on-v6 port 53 { ::1; };)$'
+            replace: '# \1'
+          loop: "{{ lineas }}"
+          notify: "reinit_named"
+
+        - meta: flush_handlers
+
+        - name: "Mod /etc/sysconfig/named"
+          lineinfile:
+            path: /etc/sysconfig/named
+            regexp: '^%OPTIONS=^'
+            line: "OPTIONS=-4"
+          notify: "reinit_named"  
+
+        - name: "Delete nameserver"
+          lineinfile:
+            path: /etc/resolv.conf
+            regexp: '^(.*)nameserver(.*)$'
+            state: absent
+                
+        - name: "Add Server"
+          lineinfile:
+            path: /etc/resolv.conf
+            state: present
+            line: 'nameserver {{ ansible_facts["default_ipv4"]["address"] }}'
+
+      always:
+        - name: "Service"
+          service:
+            name: named
+            state: started
+          register: estado
+
+        - name: "Muestra estado"
+          debug:
+            msg: "Estado del servicio: {{ estado.state }}"
+
+  handlers:
+    - name: "Enable/Start named"
+      service:
+        name: named
+        state: started
+        enabled: true
+
+    -  name: "Restart named"
+       service: 
+         name: named
+         state: restarted
+...
